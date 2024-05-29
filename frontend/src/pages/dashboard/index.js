@@ -34,7 +34,7 @@ export default function Dashboard(){
 
     useEffect(() => {
         getItems()
-    })
+    }, [])
 
     const filterHandler = (query) => {
         setCatSelected(query)
@@ -162,7 +162,7 @@ export default function Dashboard(){
         <>
             <div>
                 <Dropdown className='filter-panel' isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret>Category</DropdownToggle>
+                <DropdownToggle color="dark" caret>{catSelected ? catSelected : "All"}</DropdownToggle>
                 <DropdownMenu>
                 <DropdownItem onClick={() => filterHandler(null)}>All</DropdownItem>
                 {categories.map((category,index) => (<DropdownItem key = {index} onClick={() => filterHandler(category)}>{category}</DropdownItem>))}

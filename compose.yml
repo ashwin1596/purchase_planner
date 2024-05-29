@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  react-app:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    working_dir: /app/frontend
+    volumes:
+      # - type : bind
+      #   source : ./frontend
+      #   target : /app/frontend
+      - type : volume
+        source : react_node_modules
+        target : /app/frontend/node_modules
+    stdin_open: true
+    depends_on:
+      - server
+
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app/frontend
+          ignore: 
+            - node_modules/
+        - action: rebuild
+          path: package.json
+
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+    working_dir: /app/server
+    volumes:
+      # - type : bind
+      #   source : ./server
+      #   target :  /app/server
+      - type : volume
+        source : server_node_modules
+        target : /app/server/node_modules
+    environment:
+      - SESSION_SECRET=${SESSION_SECRET}
+      - MONGO_DB_CONNECTION=${MONGO_DB_CONNECTION}
+      - DATABASE_NAME=${DATABASE_NAME}
+
+    develop:
+      watch:
+        - action: sync
+          path: ./server
+          target: /app/server
+          ignore: 
+            - node_modules/
+        - action: rebuild
+          path: package.json
+
+volumes:
+  react_node_modules :
+  server_node_modules : 

@@ -1,6 +1,6 @@
 FROM node:slim
-WORKDIR /app/backend
-COPY . /app/backend/
+WORKDIR /app/server
+COPY . /app/server/
 RUN npm install
 
 EXPOSE 8000

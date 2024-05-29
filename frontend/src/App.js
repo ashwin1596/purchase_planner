@@ -8,7 +8,7 @@ function App() {
     <ContextWrapper>
       <Container>
           
-          <h1>Purchase Planner</h1>
+          {/* <h1>Purchase Planner</h1> */}
           <div className='content'>
             <AppRoutes />
           </div>

@@ -29,8 +29,11 @@ function TopNav() {
                 <NavItem>
                     <Link className={"link-style"} to="/items">Add Items</Link>
                 </NavItem>
+                <NavItem>
+                    <Link className={"link-style"} to="/login" onClick={handleLogout}>Log out</Link>
+                </NavItem>
             </Nav>
-            <Link className={"link-style"} to="/login" onClick={handleLogout}>Log out</Link>
+
         </Navbar>
         </div>
     ) : "";

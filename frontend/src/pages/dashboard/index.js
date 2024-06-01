@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Alert, ButtonGroup, Input} from 'reactstrap';
+import {Button, Alert, ButtonGroup, Input, Table, Popover, PopoverHeader, PopoverBody} from 'reactstrap';
 import api from '../../services/api';
 import moment from 'moment';
 import './dashboard.css';
@@ -19,6 +19,7 @@ export default function Dashboard(){
     const [ items, setItems] = useState([]);
     const [ categories, setCategories] = useState([]);
     const [ dropdownOpen, setDropdownOpen] = useState(false);
+    const [ popoverOpen, setPopoverOpen] = useState(false);
     const [ catSelected, setCatSelected ] = useState(null);
     const [ error, setError ] = useState(false)
     const [ errorMessage, setErrorMessage ] = useState('')
@@ -29,6 +30,9 @@ export default function Dashboard(){
     const [ comment, setComment ] = useState('')
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
+    const togglePopover = (id) => {
+        setPopoverOpen(popoverOpen === id ? null : id)
+    }
 
     const user = localStorage.getItem('user');
 
@@ -169,34 +173,100 @@ export default function Dashboard(){
                 </DropdownMenu>
                 </Dropdown>
             </div>
-            <ul className="items-list">
-            {items.map(item => (
-                <li key={item._id}>
-                    <strong>{item.name}</strong>
 
-                    <span>Category: {item.category}</span>
-                    <span>Price: ${parseFloat(item.price).toFixed(2)}</span>
-                    <span>Votes: {item.totalVotes}</span>
-                    <span>Comments:</span>
-                    <ul>
-                    {
-                        item.comments.map(cat => (
-                            <li key={cat}>
-                                <span>{cat}</span>
-                            </li>
-                        ))
-                    }
-                    </ul>
-                    <span>Updated At: {moment(item.updatedAt).format('LLL')}</span>
-  
-                    <ButtonGroup>
-                    <Button size="sm" onClick={() => handleDownvote(item._id)}>Downvote</Button>
-                    <Button size="sm" color="primary" onClick={() => setUpVoteItem(item._id)}>Upvote</Button>
-                    <Button size="sm" color="danger" onClick={() => handleDelete(item._id)}>Delete</Button>
-                    </ButtonGroup>
-                </li>
-            ))}
-            </ul>
+            <Table>
+            <thead>
+                <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Votes
+                </th>
+                <th>
+                    Comments
+                </th>
+                <th>
+                    Last Updated
+                </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {items.map((item,index) => {
+                const buttonId = `button-${index}`;
+                // const popoverId = `popover-${index}`;
+
+                return(
+                <>
+                    <tr key={buttonId}>
+                        <th scope="row">
+                            {item.name}
+                        </th>
+                        <td>
+                            {item.category}
+                        </td>
+                        <td>
+                            ${parseFloat(item.price).toFixed(2)}
+                        </td>
+                        <td>
+                            {item.totalVotes}
+                        </td>
+                        <td>
+                        <Button
+                            id= {buttonId}
+                            type="button"
+                            onClick={() => togglePopover(buttonId)}
+                        >
+                            View
+                        </Button>
+                        <Popover
+                            flip
+                            target={buttonId}
+                            isOpen={popoverOpen === buttonId}
+                            toggle={() => togglePopover(buttonId)}
+                        >
+                            <PopoverHeader>
+                            {item.name}
+                            </PopoverHeader>
+                            <PopoverBody>
+                            <ol>
+                            {
+                                item.comments.map(cat => (
+                                    <li key={cat}>
+                                        <span>{cat}</span>
+                                    </li>
+                                ))
+                            }
+                            </ol>
+                            </PopoverBody>
+                        </Popover>
+                        </td>
+                        <td>
+                            {moment(item.updatedAt).format('LLL')}
+                        </td>
+                        <td>
+                        <ButtonGroup>
+                        <Button size="sm" onClick={() => handleDownvote(item._id)}>∨</Button>
+                        <Button size="sm" color="primary" onClick={() => setUpVoteItem(item._id)}>^</Button>
+                        <Button size="sm" color="danger" onClick={() => handleDelete(item._id)}>X</Button>
+                        </ButtonGroup>
+                        </td>
+                     </tr>
+                </>
+                )
+            })}
+            </tbody>
+
+            </Table>
+
             {
                 upVoteItem !== '' ? (
                     <Alert>

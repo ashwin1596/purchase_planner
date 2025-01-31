@@ -1,10 +1,20 @@
-# Purchase Planner
+# Purchase Planner: Collaborative Shopping Intelligence
 
 A full-stack web application for managing and planning purchases, built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and containerized with Docker.
 
 ## Overview
 
 Purchase Planner helps users organize and track their planned purchases with features like item categorization, voting system, and collaborative feedback through comments.
+
+## Problem Solved
+
+Scattered purchase tracking and decision-making processes that lead to unnecessary spending and coordination challenges.
+
+## User Impact
+
+- Smarter purchasing decisions
+- Reduced individual and group buying friction
+- Enhanced financial planning
 
 ## Features
 

@@ -1,4 +1,4 @@
-# Purchase Planner: Collaborative Shopping Intelligence
+# Purchase Planner: Personalized Shopping Intelligence
 
 A full-stack web application for managing and planning purchases, built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and containerized with Docker.
 

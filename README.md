@@ -10,6 +10,13 @@ Purchase Planner helps users organize and track their planned purchases with fea
 
 Scattered purchase tracking and decision-making processes that lead to unnecessary spending and coordination challenges.
 
+## Implementation Highlights
+- Engineered a full-stack web application for efficient purchase management,integrating user authentication, item tracking, and category-based filtering using React, Node.js, Express, and MongoDB.
+- Designed and implemented an interactive prioritization system with upvote/downvote mechanisms and user comments, enabling smarter decision-making for purchases.
+- Optimized backend performance by structuring efficient database queries, indexing strategies, and caching mechanisms, ensuring seamless data retrieval and scalability.
+- Containerized the application with Docker and orchestrated deployments using Kubernetes, enabling automated scaling, fault tolerance, and efficient resource management.
+- Developed a user-friendly and responsive UI using React with state management and dynamic rendering, enhancing the overall user experience.
+
 ## User Impact
 
 - Smarter purchasing decisions
